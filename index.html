@@ -1,21 +1,24 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
-</head>
-<body>
 
-  <form onsubmit="return sendMessage();">
-    <input id="message" placeholder="enter" autocapitalize="off">
-    <input type="submit">
-  </form>
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <link rel="stylesheet" type="text/css" href="/style.css">
+        <title>History of an on-going monologue</title>
+    </head>
 
-  <ul id="messages"></ul>
-  
-  <script type="module">
-    // Import the functions you need from the SDKs you need
+    <body>
+
+        <form onsubmit="return sendMessage();">
+            <input id="message" placeholder="no hate comments please" autocapitalize="off" required>
+            <input type="submit" value="Contribute to My Self Monologue">
+        </form>
+
+        <ul id="messages"></ul>
+
+        <script type="module">
+            // Import the functions you need from the SDKs you need
     import { initializeApp } from "https://www.gstatic.com/firebasejs/11.0.1/firebase-app.js";
     import { getDatabase, ref, push, onChildAdded, remove } from "https://www.gstatic.com/firebasejs/11.0.1/firebase-database.js";
     
@@ -65,15 +68,15 @@
       messageElement.textContent = `${messageData.name}: ${messageData.message}`;
 
       // Show delete button if message is sent by me
-      if (messageData.name === myName) {
-        const deleteButton = document.createElement("button");
-        deleteButton.textContent = "Delete";
-        deleteButton.setAttribute("data-id", snapshot.key);
-        deleteButton.onclick = function() {
-          deleteMessage(this);
-        };
-        messageElement.appendChild(deleteButton);
-      }
+    //   if (messageData.name === myName) {
+    //     const deleteButton = document.createElement("button");
+    //     deleteButton.textContent = "Delete";
+    //     deleteButton.setAttribute("data-id", snapshot.key);
+    //     deleteButton.onclick = function() {
+    //       deleteMessage(this);
+    //     };
+    //     messageElement.appendChild(deleteButton);
+    //   }
 
       document.getElementById("messages").appendChild(messageElement);
     });
@@ -88,6 +91,28 @@
         console.error("Error deleting message:", error);
       });
     }
+
+    // Function to move a message element to a random position and assign a random animation duration
+    function moveMessage(element) {
+    const ul = document.getElementById("messages");
+    const ulWidth = ul.clientWidth;
+    const ulHeight = ul.clientHeight;
+    const randomX = Math.random() * (ulWidth - element.offsetWidth);
+    const randomY = Math.random() * (ulHeight - element.offsetHeight);
+
+    element.style.transform = `translate(${randomX}px, ${randomY}px)`;
+
+    // Assign a random animation duration between 3s and 6s
+    const randomDuration = Math.random() * 3 + 3;
+        element.style.animationDuration = `${randomDuration}s`;
+    }
+
+    // Move messages periodically
+    setInterval(() => {
+        const items = document.querySelectorAll("#messages li");
+        items.forEach(item => moveMessage(item));
+    }, 5000); // Move every 2 seconds
+
   </script>
 </body>
 </html>

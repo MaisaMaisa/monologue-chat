@@ -1,0 +1,53 @@
+body{
+    background-color: greenyellow;
+}
+
+ul{
+    position: relative;
+    display: inline-block;
+    width: auto;
+    height: 100vh;
+    list-style: none;
+}
+
+ul li {
+    width: auto;
+    float: left;
+    margin: 10px;
+    padding: 5px;
+
+    font-size: 50px;
+    border-radius: 10px;
+    background: rgb(66,195,34);
+    background: linear-gradient(90deg, rgba(66,195,34,1) 0%, rgba(45,135,253,0) 100%);
+    color: greenyellow;
+
+    transition: transform 2s;
+    animation: float ease-in-out infinite;
+}
+
+form{
+    position: fixed;
+    display: flex;
+    justify-content: center;
+    width: 100%;
+    bottom: 5%;
+    z-index: 10;
+}
+
+form input:first-child{
+    margin-right: 10px;
+    width: 20%;
+}
+
+@keyframes float {
+    0% {
+        transform: translateY(0);
+    }
+    50% {
+        transform: translateY(-20px);
+    }
+    100% {
+        transform: translateY(0);
+    }
+}
